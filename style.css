@@ -1,0 +1,48 @@
+body {
+    background-color: rgb(42, 41, 46);
+    color: white;
+}
+
+img {
+    height: 35rem;
+    border-radius: 0.7rem;
+}
+
+.image-carousel {
+    /* border: 2px solid green; */
+    position: relative;
+}
+
+.selector {
+    /* border: 2px solid red; */
+    height: 35rem;
+    width: 19.6rem;
+    position: absolute;
+    z-index: 1;
+    left: calc(50% - 19.6rem/2);
+}
+
+.previous,
+.next {
+    position: absolute;
+    top: 50%;
+}
+
+.next {
+    right: 0;
+}
+
+.images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 3s;
+}
+
+.small {
+    scale: 85%;
+}
+
+.transition {
+    transform: scale(50%);
+}
