@@ -6,6 +6,7 @@ body {
 img {
     height: 35rem;
     border-radius: 0.7rem;
+    justify-self: center;
 }
 
 .image-carousel {
@@ -33,16 +34,38 @@ img {
 }
 
 .images {
-    display: flex;
-    align-items: center;
+    display: grid;
     justify-content: center;
     transition: 3s;
+    grid-template-columns: repeat(3, 19.6rem);
+    /* Smooth sliding */
 }
 
 .small {
     scale: 85%;
+    z-index: -1;
 }
 
-.transition {
-    transform: scale(50%);
+.next-image {
+    transition: 0.5s ease-in-out;
+    transform: translateX(-100%);
+}
+
+.previous-image {
+    transition: 0.5s ease-in-out;
+    transform: translateX(100%);
+}
+
+.reset {
+    transition: 0.5s ease-in-out;
+    transform: translateX(0%);
+}
+
+
+.page-break {
+    margin: 3rem 0;
+}
+
+.hidden {
+    display: none;
 }
