@@ -15,57 +15,58 @@ const imageComponent = (url) =>{
     return img
 }
 
-
-const emptyCarousel = () => {
-    while (IMAGES.firstChild) {
-        IMAGES.removeChild(IMAGES.firstElementChild)
-    }
-}
-
-const displayCarousel = (images, start = 0) => {
-    const end = start + 3
-    const length = images.length
-
-    for (let i = start; i < end; i++) {
-        let url;
-        if (i == -1)            
-            url = images[length - 1]
-        else if (i == length)
-            url = images[0]
-        else
-            url = images[i];
-        img = imageComponent(url)
-        if (i == start || i == end - 1) 
-            img.classList.add('small')
-        IMAGES.appendChild(img)
-    }
-}
-
 let start = 0
-displayCarousel(image_urls, start)
+let end = 2
 
-// loop up to 3
+const scaleImages = (images) => {
+    images.forEach((image, index) => {
+        console.log(start)
+        console.log(end)
+        if(index === start || index === end)
+            image.classList.add('small')
+        else 
+        image.classList.remove('small')
+    })
+}
 
-// if next pressed set loop 1 - 4 and reload
-
+const images = document.querySelectorAll('.image')
+scaleImages(images)
 
 const previous = document.querySelector('.previous')
 previous.addEventListener('click', () => {
-    emptyCarousel()
-    if (start == -1)
-        start = image_urls.length - 2
-    else
-        start--
-    displayCarousel(image_urls, start)
+    start--
+    end--
+    images.forEach((image, index) => {
+        if (image.classList.contains('next-image')) {
+            image.classList.remove('next-image')
+            image.classList.add('reset')
+            setTimeout(() => {
+                image.classList.remove('reset')
+            },500)
+        } else {
+            image.classList.remove('next-image')
+            image.classList.add('previous-image')
+        }
+        scaleImages(images)
+    })
 })
 
 
 const next = document.querySelector('.next')
 next.addEventListener('click', () => {
-    emptyCarousel()
-    if (start == image_urls.length - 2)
-        start = 0
-    else
-        start++
-    displayCarousel(image_urls, start)
+    start++
+    end++
+    images.forEach((image, index) => {
+        if (image.classList.contains('previous-image')) {
+            image.classList.remove('previous-image')
+            image.classList.add('reset')
+            setTimeout(() => {
+                image.classList.remove('reset')
+            },500)
+        } else {
+            image.classList.remove('previous-image')
+            image.classList.add('next-image')
+        }
+        scaleImages(images)
+    })
 })
