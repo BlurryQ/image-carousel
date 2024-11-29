@@ -1,72 +1,84 @@
-const IMAGES = document.querySelector('.images')
-
-const image_urls = [
-    "./imgs/gojo.png", 
-    "./imgs/goku.jpg", 
-    "./imgs/ichigo.png", 
-    "./imgs/kakashi.jpeg", 
-    "./imgs/l.png", 
-    "./imgs/luffy.png"
-]
-
-const imageComponent = (url) =>{
-    const img = document.createElement('img')
-    img.src = url
-    return img
+const setupNavButtons = () => {
+    const carousel = document.querySelector('.image-carousel')
+    const nextButton = document.createElement('button')
+    const previousButton = document.createElement('button')
+    nextButton.classList.add('next')
+    previousButton.classList.add('previous')
+    nextButton.textContent = ">"
+    previousButton.textContent = "<"
+    carousel.appendChild(nextButton)
+    carousel.appendChild(previousButton)
 }
 
-let start = 0
-let end = 2
+setupNavButtons()
 
-const scaleImages = (images) => {
-    images.forEach((image, index) => {
-        console.log(start)
-        console.log(end)
-        if(index === start || index === end)
-            image.classList.add('small')
-        else 
-        image.classList.remove('small')
+const imagesNodeList = document.querySelectorAll('.image-carousel img')
+
+const getImageURLs = (images) => {
+    const image_urls = []
+    images.forEach(image => {
+        image_urls.push(image.attributes[1].value)
     })
+    return image_urls
 }
 
-const images = document.querySelectorAll('.image')
-scaleImages(images)
+const image_urls = getImageURLs(imagesNodeList)
+
+console.table(image_urls)
+
+const changeImage = (image, direction) => {
+    const mod = direction === 'next' ? 3 : -3
+    const currentURL = image.attributes[1].value
+    const index = image_urls.findIndex(url => url === currentURL)
+    let newIndex = index + mod
+    if (newIndex < 0)
+        newIndex += image_urls.length
+    else if (newIndex > image_urls.length - 1)
+        newIndex -= image_urls.length
+    image.src = image_urls[newIndex]
+}  
+
+
+const handlePreviousClick = (image) => {
+    if (image.classList.contains('left')) {
+        image.classList.remove('left')
+        image.classList.add('center')
+    }
+    else if (image.classList.contains('center')) {
+        image.classList.remove('center')
+        image.classList.add('right')
+    }
+    else if (image.classList.contains('right')) {
+        image.classList.remove('right')
+        image.classList.add('left')
+        changeImage(image, 'next')
+    }
+}
+
+
+const handleNextClick = (image) => {
+    if (image.classList.contains('left')) {
+        image.classList.remove('left')
+        image.classList.add('right')
+        changeImage(image, 'next')
+    }
+    else if (image.classList.contains('center')) {
+        image.classList.remove('center')
+        image.classList.add('left')
+    }
+    else if (image.classList.contains('right')) {
+        image.classList.remove('right')
+        image.classList.add('center')
+    }
+}
+
 
 const previous = document.querySelector('.previous')
 previous.addEventListener('click', () => {
-    start--
-    end--
-    images.forEach((image, index) => {
-        if (image.classList.contains('next-image')) {
-            image.classList.remove('next-image')
-            image.classList.add('reset')
-            setTimeout(() => {
-                image.classList.remove('reset')
-            },500)
-        } else {
-            image.classList.remove('next-image')
-            image.classList.add('previous-image')
-        }
-        scaleImages(images)
-    })
+    imagesNodeList.forEach(handlePreviousClick)
 })
-
 
 const next = document.querySelector('.next')
 next.addEventListener('click', () => {
-    start++
-    end++
-    images.forEach((image, index) => {
-        if (image.classList.contains('previous-image')) {
-            image.classList.remove('previous-image')
-            image.classList.add('reset')
-            setTimeout(() => {
-                image.classList.remove('reset')
-            },500)
-        } else {
-            image.classList.remove('previous-image')
-            image.classList.add('next-image')
-        }
-        scaleImages(images)
-    })
+    imagesNodeList.forEach(handleNextClick)
 })
