@@ -1,6 +1,8 @@
 body {
     background-color: rgb(42, 41, 46);
     color: white;
+
+    --img-width: 19.6rem;
 }
 
 img {
@@ -17,50 +19,26 @@ img {
 .selector {
     /* border: 2px solid red; */
     height: 35rem;
-    width: 19.6rem;
+    width: var(--img-width);
     position: absolute;
-    z-index: 1;
-    left: calc(50% - 19.6rem/2);
+    z-index: 5;
+    left: calc(50% - var(--img-width)/2);
 }
 
 .previous,
 .next {
     position: absolute;
-    top: 50%;
+    top: 30vh;
+    z-index: 5;
+}
+
+.previous {
+    left: calc(50% - ((var(--img-width)/2)));
 }
 
 .next {
-    right: 0;
+    left: calc(50% + ((var(--img-width)/2)));
 }
-
-.images {
-    display: grid;
-    justify-content: center;
-    transition: 3s;
-    grid-template-columns: repeat(3, 19.6rem);
-    /* Smooth sliding */
-}
-
-.small {
-    scale: 85%;
-    z-index: -1;
-}
-
-.next-image {
-    transition: 0.5s ease-in-out;
-    transform: translateX(-100%);
-}
-
-.previous-image {
-    transition: 0.5s ease-in-out;
-    transform: translateX(100%);
-}
-
-.reset {
-    transition: 0.5s ease-in-out;
-    transform: translateX(0%);
-}
-
 
 .page-break {
     margin: 3rem 0;
@@ -68,4 +46,28 @@ img {
 
 .hidden {
     display: none;
+}
+
+.image-carousel img {
+    position: absolute;
+}
+
+.left {
+    transition: 0.5s ease-in-out;
+    left: calc(50% - ((var(--img-width)/2) * 3));
+    scale: 85%;
+    z-index: -1;
+}
+
+.center {
+    transition: 0.5s ease-in-out;
+    left: calc(50% - var(--img-width)/2);
+    z-index: 2;
+}
+
+.right {
+    transition: 0.5s ease-in-out;
+    left: calc(50% + ((var(--img-width)/2)));
+    scale: 85%;
+    z-index: -1;
 }
