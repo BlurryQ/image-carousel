@@ -3,45 +3,53 @@ body {
     color: white;
 
     --img-width: 19.6rem;
+    --img-height: 35rem;
+}
+
+h1 {
+    text-align: center;
 }
 
 img {
-    height: 35rem;
+    height: var(--img-height);
     border-radius: 0.7rem;
     justify-self: center;
+    box-shadow: -3px 3px 3px rgb(15, 15, 15);
+    box-shadow: -6px 6px 6px rgb(15, 15, 15);
 }
 
 .image-carousel {
-    /* border: 2px solid green; */
     position: relative;
+    height: calc(var(--img-height) + 1rem);
+    width: calc(var(--img-width) * 3);
+    left: calc(50% - var(--img-width) * 3 / 2)
 }
 
 .selector {
-    /* border: 2px solid red; */
-    height: 35rem;
+    height: var(--img-height);
     width: var(--img-width);
     position: absolute;
     z-index: 5;
-    left: calc(50% - var(--img-width)/2);
+    left: calc(50% - var(--img-width) / 2);
 }
 
 .previous,
 .next {
     position: absolute;
-    top: 30vh;
+    top: 48%;
     z-index: 5;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: bolder;
 }
 
 .previous {
-    left: calc(50% - ((var(--img-width)/2)));
+    left: calc(50% - var(--img-width) / 2 - 1rem - 1px);
 }
 
 .next {
-    left: calc(50% + ((var(--img-width)/2)));
-}
-
-.page-break {
-    margin: 3rem 0;
+    left: calc(50% + var(--img-width) / 2 - 1rem - 1px);
 }
 
 .hidden {
@@ -52,22 +60,49 @@ img {
     position: absolute;
 }
 
-.left {
+.left,
+.right {
     transition: 0.5s ease-in-out;
-    left: calc(50% - ((var(--img-width)/2) * 3));
     scale: 85%;
-    z-index: -1;
+    z-index: -1;   
+}
+
+.left {
+    left: calc(50% - var(--img-width) / 2 * 3);
+}
+
+.right {
+    left: calc(50% + var(--img-width) / 2);
 }
 
 .center {
     transition: 0.5s ease-in-out;
-    left: calc(50% - var(--img-width)/2);
+    left: calc(50% - var(--img-width) / 2);
     z-index: 2;
 }
 
-.right {
-    transition: 0.5s ease-in-out;
-    left: calc(50% + ((var(--img-width)/2)));
-    scale: 85%;
-    z-index: -1;
+.dots {
+    position: absolute;
+    top: 100%;
+    display: flex;
+    gap: 3px;
+}
+
+.dot {
+    border: 1px solid white;
+    background-color: transparent;
+    width: 0.9rem;
+    height: 0.9rem;
+}
+
+.filled {
+    background-color: white;
+}
+
+button {
+    cursor: pointer;
+    border-radius: 10rem;
+    border: none;
+    width: 2rem;
+    height: 2rem;
 }
