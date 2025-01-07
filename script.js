@@ -183,4 +183,7 @@ allCarousels.forEach((carousel, index) => {
   main(carousel, index);
   setCSSDimensions(carousel, imagesNodeList[index].length);
 
+  setTimeout(() => {
+    handleNextClick(index)
+  }, 5000)
 })
