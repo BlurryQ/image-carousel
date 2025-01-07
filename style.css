@@ -22,7 +22,8 @@ img {
     position: relative;
     height: calc(var(--img-height) + 1rem);
     width: calc(var(--img-width) * 3);
-    left: calc(50% - var(--img-width) * 3 / 2)
+    left: calc(50% - var(--img-width) * 3 / 2);
+    margin-bottom: 3rem;
 }
 
 .selector {
@@ -49,7 +50,7 @@ img {
 }
 
 .next {
-    left: calc(50% + var(--img-width) / 2 - 1rem - 1px);
+    left: calc(50% + var(--img-width) / 2 - 1rem + 1px);
 }
 
 .hidden {
@@ -64,7 +65,7 @@ img {
 .right {
     transition: 0.5s ease-in-out;
     scale: 85%;
-    z-index: -1;   
+    z-index: -1;
 }
 
 .left {
@@ -105,4 +106,60 @@ button {
     border: none;
     width: 2rem;
     height: 2rem;
+}
+
+@media only screen and (max-width: 1000px) {
+    body {
+        --img-width: 17.6rem;
+    }
+
+    .next {
+        left: calc(50% + var(--img-width) / 2 + 1.5rem);
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    body {
+        --img-width: 13rem;
+    }
+
+    .previous {
+        left: calc(50% - var(--img-width) - 1rem);
+    }
+
+    .next {
+        left: calc(50% + var(--img-width) / 2 - 4px);
+    }
+
+    .left {
+        left: calc(50% - var(--img-width) * 2);
+    }
+
+    .right {
+        left: calc(50% + var(--img-width) / 4);
+    }
+
+    .center {
+        left: calc(50% - var(--img-width));
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    body {
+        --img-width: 9.8rem;
+    }
+
+    .next {
+        left: calc(50% + var(--img-width) - 5px);
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    body {
+        --img-width: 5rem;
+    }
+
+    .next {
+        left: calc(50% + var(--img-width) * 3 - 12px);
+    }
 }
