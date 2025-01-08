@@ -1,5 +1,6 @@
 const main = (carousel, index) => {
   setupNavButtons(carousel, index);
+  setUpPlayPauseButton(carousel, index)
   setupNavDots(carousel, index);
   const previousButtons = document.querySelectorAll(".previous");
   previousButtons.forEach((previous) => {
@@ -49,6 +50,16 @@ const setupNavDots = (carousel, index) => {
     imageDots.appendChild(dot);
   }
 };
+
+// create play/ pause button
+const setUpPlayPauseButton = (carousel, index) => {
+  const playPauseButton = document.createElement("button");
+  playPauseButton.classList.add("pause-play");
+  playPauseButton.value = index
+  playPauseButton.classList.add("pause")
+  carousel.appendChild(playPauseButton);
+  autoplayListener(carousel)
+}
 
 // get index for looping array
 const getNewIndex = (index, mod, image_urls) => {
@@ -173,17 +184,44 @@ const setCSSDimensions = (carousel, length) => {
   dots.style.left = `calc(50% - 1rem * ${length}/2`;
 };
 
+const autoplay = (index) => {
+  setTimeout(() => {
+    if (play[index]) {
+      handleNextClick(index)
+      autoplay(index)
+    }
+  }, 5000)
+}
+
+const autoplayListener = (carousel) => {
+  const pausePlay = carousel.querySelector(".pause-play")
+  pausePlay.addEventListener("click", (e) => {
+    const index = e.target ? e.target.value : e
+    if (play[index]) {
+        e.target.classList.remove("pause")  
+        e.target.classList.add("play")
+      play[index] = false
+    } else {
+        e.target.classList.remove("play") 
+        e.target.classList.add("pause") 
+      play[index] = true
+      autoplay(index)
+    }
+  })
+}
+
+
 let image_urls = [];
 let imagesNodeList = [];
 
 const allCarousels = document.querySelectorAll(".image-carousel");
+let play = Array.from({length: allCarousels.length}).fill(true)
+
 allCarousels.forEach((carousel, index) => {
   imagesNodeList.push(carousel.querySelectorAll("img"));
   image_urls.push(getImageURLs(imagesNodeList[index]));
   main(carousel, index);
   setCSSDimensions(carousel, imagesNodeList[index].length);
 
-  setTimeout(() => {
-    handleNextClick(index)
-  }, 5000)
+  autoplay(index)
 })
