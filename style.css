@@ -84,7 +84,7 @@ img {
 
 .dots {
     position: absolute;
-    top: 100%;
+    top: 101%;
     display: flex;
     gap: 3px;
 }
@@ -94,6 +94,12 @@ img {
     background-color: transparent;
     width: 0.9rem;
     height: 0.9rem;
+}
+
+.pause-play {
+    position: absolute;
+    top: 99.5%;
+    left: 42%
 }
 
 .filled {
@@ -106,6 +112,16 @@ button {
     border: none;
     width: 2rem;
     height: 2rem;
+}
+
+.play {
+    background: url(./imgs/icons/play.svg) center no-repeat;
+    background-color: white;
+}
+
+.pause {
+    background: url(./imgs/icons/pause.svg) center no-repeat;
+    background-color: white;
 }
 
 @media only screen and (max-width: 1000px) {
